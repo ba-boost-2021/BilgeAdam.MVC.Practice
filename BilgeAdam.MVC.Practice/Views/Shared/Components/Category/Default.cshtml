@@ -1,0 +1,12 @@
+﻿@using BilgeAdam.MVC.Practice.Models.Entities
+@model List<Category>
+
+<div>
+    <ul>
+        @foreach (var category in @Model)
+        {
+            <li><a href="@Url.Action("Index", "Home", @category)">@category.CategoryName</a></li>
+        }
+    </ul>
+
+</div>

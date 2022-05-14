@@ -1,9 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = @ViewBag.title;
 }
 @model List<BilgeAdam.MVC.Practice.Models.Dtos.ProductViewDto>
 <div class="row">
-    @foreach (var item in @Model)
+    <h2 class="text-warning">@ViewBag.title</h2>
+    @foreach (var product in @Model)
     {
         <div class="col-md-4 col-sm-6">
             <div class="card mt-4">
@@ -14,16 +15,17 @@
                             <span class="wishlist"><i class="fa fa-heart-o"></i></span>
                         </div>
                     </div>
-                    <a href="/Home/Detail/@item.Id">
-                        <img src="./images/@(item.Id).jpg" class="img-fluid rounded thumbnail-image">
+                    @*href="/Home/Detail/@product.Id"*@
+                    <a asp-action="Detail" asp-controller="Home" asp-route-id="@product.Id">
+                        <img src="./images/@(product.Id).jpg" class="img-fluid rounded thumbnail-image">
                     </a>
                 </div>
                 <div class="product-detail-container p-2">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="dress-name">@item.Name</h5>
+                        <h5 class="dress-name">@product.Name</h5>
                         <div class="d-flex flex-column mb-2">
-                            <span class="new-price">$@decimal.Round(item.Price, 2)</span>
-                            <small class="old-price text-right">$@(decimal.Round(item.Price, 2)+5.99M)</small>
+                            <span class="new-price">$@decimal.Round(product.Price, 2)</span>
+                            <small class="old-price text-right">$@(decimal.Round(product.Price, 2)+5.99M)</small>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center pt-1">
@@ -43,7 +45,7 @@
                             <i class="fa fa-star-o rating-star"></i>
                             <span class="rating-number">4.8</span>
                         </div>
-                        <span class="buy">Stock: @item.Stock</span>
+                        <span class="buy">Stock: @product.Stock</span>
                     </div>
                 </div>
             </div>

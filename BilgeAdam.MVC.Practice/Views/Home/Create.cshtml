@@ -1,0 +1,27 @@
+﻿@using BilgeAdam.MVC.Practice.Models.Dtos
+@{
+    ViewData["title"] = "Yeni Ürün Ekleme Ekranı";
+}
+@model ProductAddDto
+<form asp-action="Create" method="post">
+    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+    <div class="form-group">
+        <label for="Name">Ürün Adı</label>
+        <input type="text" id="Name" class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="Price">Ürün Fiyatı</label>
+        <input type="text" id="Price" class="form-control" asp-for="Price" />
+    </div>
+    <div class="form-group">
+        <label for="Stock">Ürün Stok Bilgisi</label>
+        <input type="text" id="Stock" class="form-control" asp-for="Stock" />
+    </div>
+    <button class="btn btn-primary float-end mt-3 w-25" type="submit">Kaydet</button>
+</form>
+
+@section Scripts{
+    @{ <partial name="_ValidationScriptsPartial"/> } @*partial ile cshtml i inject ettik*@
+}
+
