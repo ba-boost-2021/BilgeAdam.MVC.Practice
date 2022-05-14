@@ -5,7 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<NorthwindDbContext>(options => options.UseSqlServer("Server = localhost,20000; Database = Northwind; User Id=sa; Password= Bilgeadam123!"));
+builder.Services.AddDbContext<NorthwindDbContext>(
+    options => options.UseSqlServer("Server = .; Database = Northwind; User Id=sa; Password= 123")
+    );
 
 var app = builder.Build();
 

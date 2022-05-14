@@ -1,0 +1,83 @@
+﻿@using BilgeAdam.MVC.Practice.Models.Dtos
+@{
+}
+@model ProductDetailDto
+<div class="row">
+    <div class="col-4 shadow rounded-2 text-center">
+        <img src="/images/@(Model.Id).jpg" />
+    </div>
+    <div class="col-8">
+        <h1 class="text-warning">@Model.CompanyName</h1>
+        <h3 class="text-center">Özellikler</h3>
+        <div class="card">
+            <table class="m-5">
+                <tr>
+                    <th class="text-danger">
+                        Ürün Adı
+                    </th>
+                    <td >
+                        @Model.Name
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-danger">
+                        Kutu İçeriği 
+                    </th>
+                    <td>
+                        @Model.Quantity
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-danger">
+                        Stok Bilgisi
+                    </th>
+                    <td>
+                        @Model.Stock
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-danger">
+                        Şuan Siparişte Olanlar 
+                    </th>
+                    <td>
+                        @Model.Order
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-danger">
+                        Tedarikçi Şirket 
+                    </th>
+                    <td>
+                        @Model.CompanyName
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-danger">
+                        Tedarikçi Temsilcisi
+                    </th>
+                    <td>
+                        @Model.SupplierContactName
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-danger">
+                        Fiyat
+                    </th>
+                    <td class="fw-bold text-warning display-4">
+                        @(decimal.Round(Model.Price, 2)) ₺
+                    </td>
+                </tr>
+            </table>
+            
+        </div>
+        <div>
+            <button class="btn btn-success float-end mt-2 w-25">Sepete Ekle</button>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+    <style>
+
+    </style>
+}

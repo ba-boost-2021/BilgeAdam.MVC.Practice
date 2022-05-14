@@ -17,14 +17,13 @@
                     <a href="/Home/Detail/@item.Id">
                         <img src="./images/@(item.Id).jpg" class="img-fluid rounded thumbnail-image">
                     </a>
-
                 </div>
                 <div class="product-detail-container p-2">
                     <div class="d-flex justify-content-between align-items-center">
                         <h5 class="dress-name">@item.Name</h5>
                         <div class="d-flex flex-column mb-2">
-                            <span class="new-price">$@decimal.Round(item.Price.Value, 2)</span>
-                            <small class="old-price text-right">$@(decimal.Round(item.Price.Value, 2)+5.99M)</small>
+                            <span class="new-price">$@decimal.Round(item.Price, 2)</span>
+                            <small class="old-price text-right">$@(decimal.Round(item.Price, 2)+5.99M)</small>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center pt-1">

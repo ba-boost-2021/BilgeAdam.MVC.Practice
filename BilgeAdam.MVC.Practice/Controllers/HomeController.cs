@@ -21,9 +21,27 @@ namespace BilgeAdam.MVC.Practice.Controllers
             {
                 Id = p.ProductID,
                 Name = p.ProductName,
-                Price = p.UnitPrice,
-                Stock = p.UnitsInStock
+                Price = p.UnitPrice == null ? 0 : p.UnitPrice.Value,
+                Stock = p.UnitsInStock == null ? 0 : p.UnitsInStock.Value,
             }).Take(6).ToList();
+            return View(result);
+        }
+
+        [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            var result = dbContext.Products.Where(p => p.ProductID == id).Select(p => new ProductDetailDto
+            {
+                Id = p.ProductID,
+                CategoryName = p.Category.CategoryName,
+                CompanyName = p.Supplier.CompanyName,
+                Name = p.ProductName,
+                Order = p.UnitsOnOrder == null ? 0 : p.UnitsOnOrder.Value,
+                Price = p.UnitPrice == null ? 0 : p.UnitPrice.Value,
+                Quantity = p.QuantityPerUnit,
+                Stock = p.UnitsInStock == null ? 0 : p.UnitsInStock.Value,
+                SupplierContactName = p.Supplier.ContactName
+            }).FirstOrDefault();
             return View(result);
         }
 

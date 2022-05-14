@@ -2,10 +2,6 @@ body {
     background-color: #eee;
 }
 
-.container {
-    width: 900px;
-}
-
 .card {
     background-color: #fff;
     border: none;
