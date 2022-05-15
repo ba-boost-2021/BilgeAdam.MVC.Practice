@@ -1,4 +1,4 @@
-﻿using BilgeAdam.MVC.Practice.Context;
+﻿using BilgeAdam.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BilgeAdam.MVC.Practice.Components
@@ -11,6 +11,7 @@ namespace BilgeAdam.MVC.Practice.Components
         {
             this.dbContext = dbContext;
         }
+
         public IViewComponentResult Invoke()
         {
             var result = dbContext.Categories.ToList();

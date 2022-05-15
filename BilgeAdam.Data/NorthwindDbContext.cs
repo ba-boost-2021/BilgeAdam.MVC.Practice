@@ -1,7 +1,7 @@
-﻿using BilgeAdam.MVC.Practice.Models.Entities;
+﻿using BilgeAdam.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace BilgeAdam.MVC.Practice.Context
+namespace BilgeAdam.Data
 {
     public class NorthwindDbContext : DbContext
     {
@@ -11,6 +11,5 @@ namespace BilgeAdam.MVC.Practice.Context
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
-        
     }
 }

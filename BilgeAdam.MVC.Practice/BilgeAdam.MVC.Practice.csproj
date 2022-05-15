@@ -13,4 +13,10 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BilgeAdam.Common\BilgeAdam.Common.csproj" />
+    <ProjectReference Include="..\BilgeAdam.Data\BilgeAdam.Data.csproj" />
+    <ProjectReference Include="..\BilgeAdam.Services\BilgeAdam.Services.csproj" />
+  </ItemGroup>
 </Project>

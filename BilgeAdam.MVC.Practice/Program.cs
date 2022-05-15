@@ -1,4 +1,5 @@
-using BilgeAdam.MVC.Practice.Context;
+using BilgeAdam.Data;
+using BilgeAdam.Services.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,8 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<NorthwindDbContext>(
-    options => options.UseSqlServer("Server = .; Database = Northwind; User Id=sa; Password= 123")
+    options => options.UseSqlServer("Server = localhost,20000; Database = Northwind; User Id=sa; Password= Bilgeadam123!")
     );
+
+builder.Services.AddServices();
 
 var app = builder.Build();
 

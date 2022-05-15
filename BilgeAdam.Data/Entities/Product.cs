@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BilgeAdam.MVC.Practice.Models.Entities
+namespace BilgeAdam.Data.Entities
 {
     [Table("Products")]
     public class Product

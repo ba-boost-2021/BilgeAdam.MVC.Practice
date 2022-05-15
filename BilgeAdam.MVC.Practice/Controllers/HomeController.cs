@@ -1,7 +1,7 @@
-﻿using BilgeAdam.MVC.Practice.Context;
+﻿using BilgeAdam.Common.Dtos;
+using BilgeAdam.Data;
+using BilgeAdam.Data.Entities;
 using BilgeAdam.MVC.Practice.Models;
-using BilgeAdam.MVC.Practice.Models.Dtos;
-using BilgeAdam.MVC.Practice.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -31,7 +31,7 @@ namespace BilgeAdam.MVC.Practice.Controllers
             }
             else
             {
-                result = dbContext.Products.OrderByDescending(x=>x.ProductID).Select(p => new ProductViewDto
+                result = dbContext.Products.OrderByDescending(x => x.ProductID).Select(p => new ProductViewDto
                 {
                     Id = p.ProductID,
                     Name = p.ProductName,
@@ -66,31 +66,9 @@ namespace BilgeAdam.MVC.Practice.Controllers
             return View();
         }
 
-        public IActionResult Create()
+        public IActionResult Admin()
         {
             return View();
-        }
-
-        [HttpPost]
-        public IActionResult Create(ProductAddDto input)
-        {
-            if (ModelState.IsValid)
-            {
-                dbContext.Products.Add(new Product
-                {
-                    CategoryID = 1,
-                    Discontinued = true,
-                    ProductName = input.Name,
-                    QuantityPerUnit = "Deneme",
-                    SupplierID = 1,
-                    UnitPrice = input.Price,
-                    UnitsInStock = input.Stock
-                });
-                dbContext.SaveChanges();
-                return Redirect("Index");
-            }
-            return View(input);
-            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

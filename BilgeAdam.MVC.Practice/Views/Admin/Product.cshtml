@@ -1,6 +1,6 @@
-﻿@using BilgeAdam.MVC.Practice.Models.Dtos
-@{
-    ViewData["title"] = "Yeni Ürün Ekleme Ekranı";
+﻿@{
+    ViewData["title"] = "Ürün Yönetim Paneli";
+    Layout = "_AdminLayout";
 }
 @model ProductAddDto
 <form asp-action="Create" method="post">
@@ -24,4 +24,3 @@
 @section Scripts{
     @{ <partial name="_ValidationScriptsPartial"/> } @*partial ile cshtml i inject ettik*@
 }
-
