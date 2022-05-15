@@ -27,5 +27,26 @@ namespace BilgeAdam.Services.Concretes
             });
             dbContext.SaveChanges();
         }
+
+        public void Delete(int id)
+        {
+            var entity = dbContext.Products.SingleOrDefault(x => x.ProductID == id);
+            if(entity is not null)
+            {
+                dbContext.Products.Remove(entity);
+            }
+            dbContext.SaveChanges();
+        }
+
+        public List<ProductViewDto> GetAllProduct()
+        {
+            return dbContext.Products.OrderByDescending(p => p.ProductID).Select(p => new ProductViewDto
+            {
+                Id = p.ProductID,
+                Name = p.ProductName,
+                Price = p.UnitPrice == null ? 0 : p.UnitPrice.Value,
+                Stock = p.UnitsInStock == null ? 0 : p.UnitsInStock.Value
+            }).Take(10).ToList();
+        }
     }
 }

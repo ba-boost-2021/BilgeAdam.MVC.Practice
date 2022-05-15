@@ -1,18 +1,42 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
+
+.category {
+    border: 1px solid #8080803d;
+    border-radius: 5px;
+    padding: 10px;
+    min-height: 50vh;
+}
+
+    .category li {
+        list-style: none;
+        padding: 5px;
+    }
+
+        .category li:hover {
+            background-color: blanchedalmond;
+            cursor: pointer;
+        }
+
+        .category li a {
+            color: black;
+            text-decoration: none;
+            width: 100%;
+            display: block;
+        }

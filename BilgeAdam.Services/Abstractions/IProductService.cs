@@ -10,5 +10,7 @@ namespace BilgeAdam.Services.Abstractions
     public interface IProductService
     {
         void Add(ProductAddDto dto);
+        List<ProductViewDto> GetAllProduct();
+        void Delete(int id);
     }
 }

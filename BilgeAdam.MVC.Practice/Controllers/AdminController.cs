@@ -18,11 +18,17 @@ namespace BilgeAdam.MVC.Practice.Controllers
         }
         public IActionResult Product()
         {
-            return View();
+            var result = productService.GetAllProduct();
+            return View(result);
+        }
+        public IActionResult DeleteProduct(int id)
+        {
+            productService.Delete(id);
+            return RedirectToAction("Product");
         }
 
         [HttpPost]
-        public IActionResult Create(ProductAddDto input)
+        public IActionResult Product(ProductAddDto input)
         {
             
             if (ModelState.IsValid)

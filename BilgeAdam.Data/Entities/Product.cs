@@ -8,6 +8,7 @@ namespace BilgeAdam.Data.Entities
     {
         [Key]
         public int ProductID { get; set; }
+
         public string ProductName { get; set; }
         public int CategoryID { get; set; }
         public int SupplierID { get; set; }
@@ -23,5 +24,20 @@ namespace BilgeAdam.Data.Entities
 
         [ForeignKey(nameof(SupplierID))]
         public Supplier Supplier { get; set; }
+
+        public ICollection<OrderDetail> OrderDetails { get; set; }
+    }
+
+    [Table("Order Details")]
+    public class OrderDetail
+    {
+        [Key]
+        public int OrderID { get; set; }
+        public int ProductID { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public short? Quantity { get; set; }
+
+        [ForeignKey(nameof(ProductID))]
+        public Product Product { get; set; }
     }
 }

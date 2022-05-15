@@ -2,25 +2,56 @@
     ViewData["title"] = "Ürün Yönetim Paneli";
     Layout = "_AdminLayout";
 }
-@model ProductAddDto
-<form asp-action="Create" method="post">
-    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-    <div class="form-group">
-        <label for="Name">Ürün Adı</label>
-        <input type="text" id="Name" class="form-control" asp-for="Name" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+@model List<ProductViewDto>
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+}
+<div class="row">
+    <div class="col-5">
+        @using (Html.BeginForm("Product", "Admin"))
+        {
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+            <div class="form-group">
+                <label for="Name">Ürün Adı</label>
+                <input type="text" id="Name" class="form-control" name="Name" />
+                @*<span name="Name" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <label for="Price">Ürün Fiyatı</label>
+                <input type="text" id="Price" class="form-control" name="Price" />
+            </div>
+            <div class="form-group">
+                <label for="Stock">Ürün Stok Bilgisi</label>
+                <input type="text" id="Stock" class="form-control" name="Stock" />
+            </div>
+            <button class="btn btn-primary float-end mt-3 w-25" type="submit">Kaydet</button>
+        }
+
     </div>
-    <div class="form-group">
-        <label for="Price">Ürün Fiyatı</label>
-        <input type="text" id="Price" class="form-control" asp-for="Price" />
+    <div class="col-7 table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th></th>
+            </tr>
+            @foreach (var p in @Model)
+            {
+                <tr>
+                    <td>@p.Name</td>
+                    <td>@p.Price</td>
+                    <td>@p.Stock</td>
+                    <td><a href="/Admin/DeleteProduct/@p.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a></td>
+                </tr>
+            }
+
+        </table>
     </div>
-    <div class="form-group">
-        <label for="Stock">Ürün Stok Bilgisi</label>
-        <input type="text" id="Stock" class="form-control" asp-for="Stock" />
-    </div>
-    <button class="btn btn-primary float-end mt-3 w-25" type="submit">Kaydet</button>
-</form>
+</div>
 
 @section Scripts{
-    @{ <partial name="_ValidationScriptsPartial"/> } @*partial ile cshtml i inject ettik*@
+    @{
+    <partial name="_ValidationScriptsPartial" />
+ } @*partial ile cshtml i inject ettik*@
 }
