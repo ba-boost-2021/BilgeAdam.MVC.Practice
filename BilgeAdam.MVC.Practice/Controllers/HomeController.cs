@@ -21,7 +21,7 @@ namespace BilgeAdam.MVC.Practice.Controllers
             var result = new List<ProductViewDto>();
             if (category.CategoryID != 0)
             {
-                result = dbContext.Products.OrderByDescending(x => x.ProductID).Where(x => x.CategoryID == category.CategoryID).Select(p => new ProductViewDto
+                result = dbContext.Products.Where(x => x.CategoryID == category.CategoryID).Select(p => new ProductViewDto
                 {
                     Id = p.ProductID,
                     Name = p.ProductName,
@@ -31,7 +31,7 @@ namespace BilgeAdam.MVC.Practice.Controllers
             }
             else
             {
-                result = dbContext.Products.OrderByDescending(x => x.ProductID).Select(p => new ProductViewDto
+                result = dbContext.Products.Select(p => new ProductViewDto
                 {
                     Id = p.ProductID,
                     Name = p.ProductName,
