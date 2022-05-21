@@ -34,6 +34,32 @@ namespace BilgeAdam.MVC.Practice.Controllers
                 return BadRequest("Başarısız");
             }
         }
+        [HttpGet]
+        public IActionResult GetProductById([FromRoute]int id)
+        {
+            var result = productService.GetProductById(id);
+            if(result is not null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        [HttpPut]
+        public IActionResult UpdateProduct([FromBody] ProductUpdateInput input)
+        {
+            var result = productService.UpdateProduct(input);
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
         [HttpPost]
         public IActionResult Product(ProductAddDto input)

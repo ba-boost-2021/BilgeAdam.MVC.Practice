@@ -12,5 +12,7 @@ namespace BilgeAdam.Services.Abstractions
         void Add(ProductAddDto dto);
         List<ProductViewDto> GetAllProduct();
         bool Delete(int id);
+        ProductViewDto GetProductById(int id);
+        bool UpdateProduct(ProductUpdateInput input);
     }
 }

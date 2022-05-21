@@ -29,12 +29,17 @@
 
     </div>
     <div class="col-7 table-responsive">
+        <div id="SuccessAlert" class="alert alert-success mt-2" role="alert">
+            Güncelleme işlemi başarılı.
+        </div>
+        <div id="ErrorAlert" class="alert alert-danger mt-2" role="alert">
+            Veri güncellenemedi.(Aynı isimde başka bir ürün olabilir.)
+        </div>
         <table class="table table-striped">
             <tr>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Stock</th>
-                <th></th>
                 <th></th>
             </tr>
             @foreach (var p in @Model)
@@ -44,8 +49,10 @@
                     <td>@p.Price</td>
                     <td>@p.Stock</td>
                     @*<td><a href="/Admin/DeleteProduct/@p.Id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a></td>*@
-                    <td><a onclick="deleteProduct(@p.Id)" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a></td>
-                    <td><a onclick="updateProduct(@p.Id)" class="btn btn-sm btn-outline-info"><i class="bi bi-pen"></i></a></td>
+                    <td>
+                        <a onclick="deleteProduct(@p.Id)" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></a>
+                        <a onclick="updateProduct(@p.Id)" class="btn btn-sm btn-outline-info"><i class="bi bi-pen"></i></a>
+                    </td>
 
                 </tr>
             }
@@ -62,38 +69,43 @@
 
 <!--start-updateModal-->
 <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateModalLabel">Ürün Güncelleme</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-                <label for="Name">Ürün Adı</label>
-                <input type="text" id="Name" class="form-control" name="Name" />
-                @*<span name="Name" class="text-danger"></span>*@
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Ürün Güncelleme</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="form-group">
-                <label for="Price">Ürün Fiyatı</label>
-                <input type="text" id="Price" class="form-control" name="Price" />
+            <div class="modal-body">
+                <div class="d-none" id="ModalId"></div>
+                <div class="form-group">
+                    <label for="ModalName">Ürün Adı</label>
+                    <input type="text" id="ModalName" class="form-control" name="Name" />
+                </div>
+                <div class="form-group">
+                    <label for="ModalPrice">Ürün Fiyatı</label>
+                    <input type="text" id="ModalPrice" class="form-control" name="Price" />
+                </div>
+                <div class="form-group">
+                    <label for="ModalStock">Ürün Stok Bilgisi</label>
+                    <input type="text" id="ModalStock" class="form-control" name="Stock" />
+                </div>
+                <div class="form-check form-switch">
+                    <label class="form-check-label" for="ModalDiscontinued">Ürün Satışta</label>
+                    <input class="form-check-input" type="checkbox" id="ModalDiscontinued" checked>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="Stock">Ürün Stok Bilgisi</label>
-                <input type="text" id="Stock" class="form-control" name="Stock" />
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button onclick="save()" type="button" class="btn btn-primary">Save changes</button>
             </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button onclick="save" type="button" class="btn btn-primary">Save changes</button>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
 <!--end-updateModal-->
-
 @section Scripts{
 <script>
+    $("#ErrorAlert").hide();
+    $("#SuccessAlert").hide();
     function deleteProduct(id){
         $.ajax({
             url:`/Admin/DeleteProduct/${id}`,
@@ -115,11 +127,61 @@
         });
     }
     function updateProduct(id){
-        //TODO: id ile ajax isteği atıp ürün detaylarını getir ve uygun form elementlerine bind et(yerleştir)
+        $.ajax({
+            url:`/Admin/GetProductById/${id}`,
+            contentType:"application/json",
+            type:"GET",
+            success: (response)=>{
+                if(response){
+                    loadModal(response);
+                }
+            },
+            error: (error)=>{
+                if(error){
+                    console.log(error);
+                    //TODO: handle
+                }
+            }
+        });
         $("#updateModal").modal("toggle");
     }
+    function loadModal(data){
+        //console.log(data);
+        $("#ModalName").val(data.name);
+        $("#ModalStock").val(data.stock);
+        $("#ModalPrice").val(data.price);
+        $("#ModalId").html(data.id);
+        $("#ModalDiscontinued").attr("checked", !data.discontinued);
+    }
     function save(){
-        //TODO:
+        $("#ErrorAlert").hide();
+        $("#SuccessAlert").hide();
+        let requestData = {
+            Id: $("#ModalId").text(),
+            Name: $("#ModalName").val(),
+            Stock : $("#ModalStock").val(),
+            Price: $("#ModalPrice").val(),
+            Discontinued: $("#ModalDiscontinued").attr("checked") != "checked"
+        };
+        $.ajax({
+            url:"/Admin/UpdateProduct",
+            contentType:"application/json",
+            type:"PUT",
+            data:JSON.stringify(requestData),
+            success: ()=>{
+                $("#SuccessAlert").show();
+                setTimeout(function (){
+                    location.reload();
+                },3000);
+            },
+            error: ()=>{
+                $("#ErrorAlert").show();
+            },
+            complete: ()=>{
+                $("#updateModal").modal("hide");
+            }
+        })
+        //TODO: Category ve Customer süreci için update implementasyonu yapınız...
     }
 </script>
 
