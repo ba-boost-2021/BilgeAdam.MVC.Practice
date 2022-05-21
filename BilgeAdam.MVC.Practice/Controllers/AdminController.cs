@@ -21,10 +21,18 @@ namespace BilgeAdam.MVC.Practice.Controllers
             var result = productService.GetAllProduct();
             return View(result);
         }
-        public IActionResult DeleteProduct(int id)
+        [HttpDelete]
+        public IActionResult DeleteProduct([FromRoute]int id)
         {
-            productService.Delete(id);
-            return RedirectToAction("Product");
+            var result = productService.Delete(id);
+            if (result)
+            {
+                return Json(result);
+            }
+            else
+            {
+                return BadRequest("Başarısız");
+            }
         }
 
         [HttpPost]

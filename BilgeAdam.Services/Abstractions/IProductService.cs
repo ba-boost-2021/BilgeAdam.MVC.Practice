@@ -11,6 +11,6 @@ namespace BilgeAdam.Services.Abstractions
     {
         void Add(ProductAddDto dto);
         List<ProductViewDto> GetAllProduct();
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

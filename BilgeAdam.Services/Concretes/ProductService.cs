@@ -28,14 +28,15 @@ namespace BilgeAdam.Services.Concretes
             dbContext.SaveChanges();
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             var entity = dbContext.Products.SingleOrDefault(x => x.ProductID == id);
             if(entity is not null)
             {
                 dbContext.Products.Remove(entity);
             }
-            dbContext.SaveChanges();
+            var result = dbContext.SaveChanges();
+            return false;
         }
 
         public List<ProductViewDto> GetAllProduct()
